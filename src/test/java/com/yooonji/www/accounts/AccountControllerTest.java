@@ -35,6 +35,9 @@ public class AccountControllerTest {
     @Autowired
     ObjectMapper mapper;
 
+    @Autowired
+    AccountService service;
+
     MockMvc mockMvc;
 
     @Before
@@ -79,4 +82,16 @@ public class AccountControllerTest {
         result.andDo(print());
         result.andExpect(status().isBadRequest());
     }
+    @Test
+    public void getAccount() throws Exception{
+        AccountDto.Create createDto  =  new AccountDto.Create();
+        createDto.setUserName("psyche2823");
+        createDto.setPassword("12345678");
+        service.createAccount(createDto);
+
+        ResultActions  result = mockMvc.perform(get("/accounts"));
+        result.andDo(print());
+        result.andExpect(status().isOk());
+    }
+
 }
