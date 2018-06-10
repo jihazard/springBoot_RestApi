@@ -1,6 +1,7 @@
 package com.yooonji.www.accounts;
 
-import com.yooonji.www.ErrorResponse;
+import com.yooonji.www.common.ErrorResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@Slf4j
 public class AccountController {
 
     @Autowired
@@ -31,14 +33,13 @@ public class AccountController {
     public ResponseEntity create(@RequestBody @Valid AccountDto.Create create
             , BindingResult result) {
 
-        System.out.println("----접속1");
+
 
         if (result.hasErrors()) {
             ErrorResponse errorResponse = new ErrorResponse();
             errorResponse.setMessage("잘못된 요청입니다.");
             errorResponse.setCode("bad Request");
-            System.out.println("----400에러 발생");
-            return new ResponseEntity(errorResponse, HttpStatus.BAD_REQUEST);
+             return new ResponseEntity(errorResponse, HttpStatus.BAD_REQUEST);
         }
         Account account = service.createAccount(create);
         return new ResponseEntity<>(modelMapper.map(account, AccountDto.Response.class)
@@ -46,23 +47,23 @@ public class AccountController {
 
     }
 
-   @ExceptionHandler(UserDuplicationException.class)
-    public ResponseEntity handleUserDuplicatedException(UserDuplicationException e){
+    @ExceptionHandler(UserDuplicationException.class)
+    public ResponseEntity handleUserDuplicatedException(UserDuplicationException e) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setMessage(e.getUsername()
                 + "중복 아이디 입니다.");
         errorResponse.setCode("duplicated username.exception");
-        return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value ="/accounts" , method = RequestMethod.GET)
-    public ResponseEntity getAccounts(Pageable pageable){
-          Page<Account> page =  repository.findAll(pageable);
-          List<AccountDto.Response> content=  page.getContent().parallelStream()
-                  .map(account->modelMapper.map(account,AccountDto.Response.class))
-                  .collect(Collectors.toList());
+    @RequestMapping(value = "/accounts", method = RequestMethod.GET)
+    public ResponseEntity getAccounts(Pageable pageable) {
+        Page<Account> page = repository.findAll(pageable);
+        List<AccountDto.Response> content = page.getContent().parallelStream()
+                .map(account -> modelMapper.map(account, AccountDto.Response.class))
+                .collect(Collectors.toList());
 
-         PageImpl<AccountDto.Response> result =  new PageImpl<>(content, pageable, page.getTotalPages());
-         return new ResponseEntity<>(result, HttpStatus.OK);
+        PageImpl<AccountDto.Response> result = new PageImpl<>(content, pageable, page.getTotalPages());
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

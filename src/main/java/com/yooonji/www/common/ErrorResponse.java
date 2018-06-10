@@ -1,4 +1,4 @@
-package com.yooonji.www;
+package com.yooonji.www.common;
 
 import lombok.Data;
 

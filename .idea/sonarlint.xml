@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SonarLintProjectSettings">
+    <option name="fileExclusions">
+      <list>
+        <option value="DIRECTORY:src/main/java/com/yooonji/www" />
+        <option value="FILE:src/main/java/com/yooonji/www/accounts/Account.java" />
+        <option value="FILE:src/main/java/com/yooonji/www/accounts/AccountController.java" />
+        <option value="FILE:src/main/java/com/yooonji/www/accounts/AccountService.java" />
+      </list>
+    </option>
+  </component>
+</project>
