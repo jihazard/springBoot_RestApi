@@ -1,8 +1,8 @@
 package com.yooonji.www.accounts;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
+
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -22,11 +22,20 @@ public class AccountDto {
 
         private Long id;
         private String userName;
-        @JsonIgnore
+        //@JsonIgnore
         private String password;
         private String fullName;
         private Date joined;
         private Date updated;
+
+    }
+
+    @Data
+    public static class UPDATE{
+
+        private String password;
+        private String fullName;
+
 
     }
 

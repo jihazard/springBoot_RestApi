@@ -1,6 +1,4 @@
 package com.yooonji.www.accounts;
-
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yooonji.www.Application;
 import org.junit.Before;
@@ -16,7 +14,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -66,11 +63,11 @@ public class AccountControllerTest {
 
         result.andDo(print());
         result.andExpect(status().isBadRequest());
-        result.andExpect(jsonPath("$.code",is("duplicated username.exception")));
+        result.andExpect(jsonPath("$.code", is("duplicated username.exception")));
     }
 
     @Test
-    public void createAcount_BadRequest() throws Exception{
+    public void createAcount_BadRequest() throws Exception {
         AccountDto.Create accountDto = new AccountDto.Create();
         accountDto.setUserName(" ");
         accountDto.setPassword("123456");
@@ -82,16 +79,52 @@ public class AccountControllerTest {
         result.andDo(print());
         result.andExpect(status().isBadRequest());
     }
+
     @Test
-    public void getAccount() throws Exception{
-        AccountDto.Create createDto  =  new AccountDto.Create();
-        createDto.setUserName("psyche2823");
-        createDto.setPassword("12345678");
+    public void getAccount() throws Exception {
+        AccountDto.Create createDto = accountCreateFixture();
         service.createAccount(createDto);
 
-        ResultActions  result = mockMvc.perform(get("/accounts"));
+        ResultActions result = mockMvc.perform(get("/accounts"));
         result.andDo(print());
         result.andExpect(status().isOk());
     }
 
+    private AccountDto.Create accountCreateFixture() {
+        AccountDto.Create createDto = new AccountDto.Create();
+        createDto.setUserName("psyche2823");
+        createDto.setPassword("12345678");
+        return createDto;
+    }
+
+    @Test
+    public void getAccounts() throws Exception{
+        AccountDto.Create accountDto = accountCreateFixture();
+        Account account = service.createAccount(accountDto);
+
+        ResultActions result = mockMvc.perform(get("/accounts/"+account.getId()));
+        result.andDo(print());
+        result.andExpect(status().isOk());
+    }
+
+    @Test
+    public void accountUpdate() throws Exception {
+        AccountDto.Create accountDto = accountCreateFixture();
+        Account account = service.createAccount(accountDto);
+
+        AccountDto.UPDATE updateAccount = new AccountDto.UPDATE();
+        updateAccount.setFullName("yoon33153315");
+        updateAccount.setPassword("9872954");
+
+        ResultActions result = mockMvc.perform(put("/accounts/"+account.getId())
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(mapper.writeValueAsString(updateAccount)));
+
+        result.andDo(print());
+        result.andExpect(status().isOk());
+        result.andExpect(jsonPath("$.fullName", is("yoon33153315")));
+        result.andExpect(jsonPath("$.password", is("9872954")));
+
+
+    }
 }

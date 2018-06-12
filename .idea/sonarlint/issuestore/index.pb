@@ -1,6 +1,4 @@
 
-`
-0src/main/java/com/yooonji/www/ErrorResponse.java,a\f\afd8315d2056c11b45d344126b27afa1769d2671
 m
 =src/main/java/com/yooonji/www/accounts/AccountRepository.java,f\e\fef82a880e318f5737989fcb45e1c0cd0c393dee
 q
@@ -25,3 +23,9 @@ M
 .src/main/java/com/yooonji/www/Application.java,0\1\01fcb0e8371900555275826a86868fe1bbb77926
 ?
 logs/spring.log,7\6\76a20666cd8f97e7a29654b5cc02219795841972
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+g
+7src/main/java/com/yooonji/www/common/ErrorResponse.java,4\d\4d578a069f8a98f9e6283aa8f5a462f60f466f56
+j
+:src/main/java/com/yooonji/www/common/ExceptionHandler.java,b\3\b3e63d748678e22f3e4c6faa709361869fdba9ce

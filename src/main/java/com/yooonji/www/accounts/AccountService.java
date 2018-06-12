@@ -36,4 +36,21 @@ public class AccountService {
 
         return repository.save(account);
     }
+
+    public Account updateAccound(Long id , AccountDto.UPDATE updateDto) {
+        Account account = getAccount(id);
+        account.setFullName(updateDto.getFullName());
+        account.setPassword(updateDto.getPassword());
+        return repository.save(account);
+
+
+    }
+
+    public Account getAccount(Long id) {
+        Account account = repository.findOne(id);
+        if(account ==null){
+            throw new AccountNotFoundException(id);
+        }
+        return account;
+    }
 }
