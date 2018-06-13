@@ -29,3 +29,9 @@ g
 7src/main/java/com/yooonji/www/common/ErrorResponse.java,4\d\4d578a069f8a98f9e6283aa8f5a462f60f466f56
 j
 :src/main/java/com/yooonji/www/common/ExceptionHandler.java,b\3\b3e63d748678e22f3e4c6faa709361869fdba9ce
+r
+Bsrc/test/java/com/yooonji/www/accounts/AccountControllerTest2.java,8\7\87bb3265a436eea34d35207528e50eb9842b5260
+t
+Dsrc/main/java/com/yooonji/www/accounts/AccountNotFoundException.java,d\3\d3f0c21bc11beedb1597ba1bdadd1b5ad0f1d13a
+Q
+!src/main/resources/static/main.js,9\c\9c7ea218e88b96129ece547872569f1f9aa41e0e

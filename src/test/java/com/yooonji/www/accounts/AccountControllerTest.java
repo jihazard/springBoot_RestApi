@@ -39,6 +39,7 @@ public class AccountControllerTest {
 
     @Before
     public void setUp() throws Exception {
+
         mockMvc = MockMvcBuilders.webAppContextSetup(wac)
                 .build();
     }
@@ -124,7 +125,18 @@ public class AccountControllerTest {
         result.andExpect(status().isOk());
         result.andExpect(jsonPath("$.fullName", is("yoon33153315")));
         result.andExpect(jsonPath("$.password", is("9872954")));
+    }
 
+    @Test
+    public void deleteAccount() throws Exception{
+       ResultActions result = mockMvc.perform(delete("/accounts/1"));
+       result.andDo(print());
+       result.andExpect(status().isBadRequest());
 
+        AccountDto.Create accountDto = accountCreateFixture();
+        Account account = service.createAccount(accountDto);
+        result = mockMvc.perform(delete("/accounts/"+account.getId()));
+        result.andDo(print());
+        result.andExpect(status().isNoContent());
     }
 }

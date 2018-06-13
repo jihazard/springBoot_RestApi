@@ -53,4 +53,8 @@ public class AccountService {
         }
         return account;
     }
+
+    public void delete(Long id) {
+        repository.delete(getAccount(id));
+    }
 }

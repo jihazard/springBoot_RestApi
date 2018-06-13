@@ -100,4 +100,12 @@ public class AccountController {
         return new ResponseEntity<>(modelMapper.map(resultAccount, AccountDto.Response.class), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/accounts/{id}", method = DELETE)
+    public ResponseEntity deleteAccount(@PathVariable Long id){
+        service.delete(id);
+        //204리턴
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+
+    }
+
 }
